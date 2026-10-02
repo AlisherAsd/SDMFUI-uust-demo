@@ -1,0 +1,1 @@
+DELETE DATABASE layout_service_db;
