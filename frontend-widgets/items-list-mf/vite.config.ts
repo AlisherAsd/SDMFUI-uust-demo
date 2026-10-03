@@ -11,17 +11,17 @@ export default defineConfig({
     vue(),
     vueDevTools(),
     federation({
-      name: 'header-mf',
+      name: 'items-list-mf',
       filename: 'remoteEntry.js',
       exposes: {
-        './Header': './src/header/Header.vue'
+        './ItemsList': './src/items-list/ItemsList.vue'
       },
       shared: {
         vue: { singleton: true },    
       },
     }),
   ],
-  server: { port: 5001 }, 
+  server: { port: 5003 }, 
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

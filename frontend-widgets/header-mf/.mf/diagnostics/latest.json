@@ -1,0 +1,10 @@
+{
+  "latestErrorEvent": {
+    "code": "TYPE-001",
+    "message": "Failed to generate type declaration. Execute the below cmd to reproduce and fix the error. #TYPE-001\nargs: {\"cmd\":\"npx vue-tsc --project /Users/alisersaripov/Desktop/SDMFUI-uust-demo/frontend-widgets/header-mf/node_modules/.federation/tsconfig.e5078862a4208098a58bf88fad79499c.json\"}\nView the docs to see how to solve: https://module-federation.io/guide/troubleshooting/type#type-001",
+    "args": {
+      "cmd": "npx vue-tsc --project /Users/alisersaripov/Desktop/SDMFUI-uust-demo/frontend-widgets/header-mf/node_modules/.federation/tsconfig.e5078862a4208098a58bf88fad79499c.json"
+    },
+    "timestamp": 1791037698901
+  }
+}

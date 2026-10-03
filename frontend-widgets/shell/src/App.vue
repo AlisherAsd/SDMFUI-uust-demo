@@ -1,24 +1,17 @@
 <script setup lang="ts">
-import { loadRemote, registerRemotes } from '@module-federation/enhanced/runtime';
-import { computed, onBeforeMount, ref, shallowRef, watch, type Component } from 'vue';
-import { useLoadRemotes } from './core/useLoadRemotes';
-import { getRemotes } from './api/remotes';
-import { useRoute, useRouter } from 'vue-router';
-
-const components = shallowRef<Component[]>([])
+import { computed} from 'vue';
+import RenderMachine from './render-machine/RenderMachine.vue';
+import AdminPanel from './admin/AdminPanel.vue';
 
 const currentPath = window.location.pathname 
 const currentPage = currentPath.split('/')[1] || 'home'  
 
-onBeforeMount(async () => {
-  const remotes = await getRemotes(currentPage)
-  const res = await useLoadRemotes(remotes)
-  components.value = res
-})
+const currentPageIsAdmin = computed(() => currentPage === 'admin')
 </script>
 
 <template>
-  <div v-for="c in components">
-    <component :is="c" />
+  <div>
+    <RenderMachine v-if="!currentPageIsAdmin" :current-page="currentPage" />
+    <AdminPanel v-else />
   </div>
 </template>

@@ -1,0 +1,24 @@
+ul {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.container a {
+    text-decoration: none;
+    color: white;
+}
+
+.container {
+    background-color: rgb(40, 40, 40);
+    padding: 0px 40px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size:large;
+}

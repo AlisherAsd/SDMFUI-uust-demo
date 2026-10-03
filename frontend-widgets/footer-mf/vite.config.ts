@@ -14,7 +14,7 @@ export default defineConfig({
       name: 'footer-mf',
       filename: 'remoteEntry.js',
       exposes: {
-        './Footer': './src/Footer.vue'
+        './Footer': './src/footer/Footer.vue'
       },
       shared: {
         vue: { singleton: true },    
