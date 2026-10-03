@@ -14,7 +14,7 @@ env-cleanup: env-down
 	rm -rf ${PROJECT_ROOT}/out/pgdata
 
 migrate-up:
-	@sleep 2
+	@sleep 5
 	migrate -path ./migrations -database "${POSTGRES_ROOT}" up
 
 migrate-create:

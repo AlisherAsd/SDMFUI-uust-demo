@@ -1,4 +1,6 @@
 .DS_Store
 .vscode
 .dist
-@mf-types
+.mf/
+@mf-types/
+*.bin
