@@ -1,0 +1,53 @@
+# Зависимости
+node_modules/
+.pnp
+.pnp.js
+
+# Сборка
+dist/
+dist-ssr/
+*.local
+
+# Vite
+.vite/
+.vite-ssr/
+
+# Module Federation — генерируемые типы
+@mf-types/
+.mf/
+
+# Переменные окружения
+.env
+.env.local
+.env.*.local
+
+# Логи
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Редакторы
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ОС
+.DS_Store
+Thumbs.db
+
+# Тесты
+coverage/
+*.lcov
+
+# Storybook
+storybook-static/

@@ -3,24 +3,36 @@ import { ref } from 'vue';
 import s from './Header.module.css'
 import User from '@primeicons/vue/user';
 
+interface Context {
+    user?: {
+        username?: string;
+        isAuthorization?: boolean;
+    };
+}
+
+
+const props = defineProps<{
+    context?: Context
+}>()
+
 interface ItemsLink {
-  title: string
-  value: string
+    title: string
+    value: string
 }
 
 const pages = ref<ItemsLink[]>([
-  {
-    title: 'Главная',
-    value: 'home'
-  },
-  {
-    title: 'Пользователи',
-    value: '/users'
-  },
-  {
-    title: 'О нас',
-    value: '/about'
-  },
+    {
+        title: 'Главная',
+        value: 'home'
+    },
+    {
+        title: 'Пользователи',
+        value: '/users'
+    },
+    {
+        title: 'О нас',
+        value: '/about'
+    },
 ])
 </script>
 
@@ -36,7 +48,7 @@ const pages = ref<ItemsLink[]>([
                 <li v-for="l in pages">
                     <a :href="l.value">{{ l.title }}</a>
                 </li>
-                <li>
+                <li v-if="context?.user?.isAuthorization" :class="s.profile">
                     <a href="/profile">
                         <User size="25" />
                     </a>

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@module-federation/vite": "^1.23.0",
+    "axios": "^1.20.0",
     "vue": "^3.5.42"
   },
   "devDependencies": {

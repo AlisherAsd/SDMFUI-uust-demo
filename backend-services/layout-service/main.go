@@ -169,7 +169,7 @@ func getLayout(p *pgxpool.Pool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		rows, err := p.Query(
 			c.Request.Context(),
-			"SELECT w.id, pw.level, w.mf_name, w.component_name, w.entry_url FROM widgets w JOIN pages_widgets pw ON pw.widget_id = w.id JOIN pages p ON pw.page_id = p.id WHERE p.name = $1",
+			"SELECT w.id, pw.level, w.mf_name, w.component_name, w.entry_url FROM widgets w JOIN pages_widgets pw ON pw.widget_id = w.id JOIN pages p ON pw.page_id = p.id WHERE p.name = $1 ORDER BY pw.level ASC",
 			c.Param("pageName"),
 		)
 
@@ -226,6 +226,30 @@ func addWidgetOnPage(p *pgxpool.Pool) gin.HandlerFunc {
 	}
 }
 
+
+func deleteWidgetFromPage(p *pgxpool.Pool) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		_, err := p.Exec(
+			c.Request.Context(),
+			`DELETE FROM pages_widgets WHERE page_id = $1 AND widget_id = $2`,
+			c.Param("pageId"), c.Param("widgetId"),
+		)
+
+		if err != nil {
+			c.JSON(http.StatusBadGateway, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusCreated, gin.H{
+			"success": true,
+		})
+		return
+	}
+}
+
+
 func main() {
 	_ = godotenv.Load()
 	r := gin.Default()
@@ -265,7 +289,8 @@ func main() {
 	r.POST("/pages", createPage(pool))
 
 	r.POST("/pages/widget", addWidgetOnPage(pool))
+	r.DELETE("/pages/widget/:widgetId/:pageId", deleteWidgetFromPage(pool))
 
-	r.Run()
+	r.Run(":8080")
 
 }

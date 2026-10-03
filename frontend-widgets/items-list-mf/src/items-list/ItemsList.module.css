@@ -1,3 +1,22 @@
 .container {
-    min-height: 800px;
+  min-height: 800px;
+  margin: 40px 0;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  gap: 20px;
+  justify-content: center;
+}
+
+.item {
+  width: 200px;
+  height: 250px;
+  border: 1px solid rgb(236, 233, 233);
+}
+
+.item img {
+  width: 200px;
+  height: 150px;
 }

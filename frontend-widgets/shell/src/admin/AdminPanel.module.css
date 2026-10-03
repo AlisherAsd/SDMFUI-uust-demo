@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  border: 2px solid black;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.save {
+  background-color: green;
+}
+
+.clear {
+  background-color: red;
+}
+
+button {
+  margin: 10px;
+}
+
+.logo {
+  margin-left: 40px;
+}

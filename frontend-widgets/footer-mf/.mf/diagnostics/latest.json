@@ -1,10 +1,10 @@
 {
   "latestErrorEvent": {
     "code": "TYPE-001",
-    "message": "Failed to generate type declaration. Execute the below cmd to reproduce and fix the error. #TYPE-001\nargs: {\"cmd\":\"npx vue-tsc --project /Users/alisersaripov/Desktop/SDMFUI-uust-demo/frontend-widgets/footer-mf/node_modules/.federation/tsconfig.287da30b0f8e696fd683c0faff670e0d.json\"}\nView the docs to see how to solve: https://module-federation.io/guide/troubleshooting/type#type-001",
+    "message": "Failed to generate type declaration. Execute the below cmd to reproduce and fix the error. #TYPE-001\nargs: {\"cmd\":\"npx vue-tsc --project /Users/alisersaripov/Desktop/SDMFUI-uust-demo/frontend-widgets/footer-mf/node_modules/.federation/tsconfig.0e88e57c6bfd818136b3346240f198d9.json\"}\nView the docs to see how to solve: https://module-federation.io/guide/troubleshooting/type#type-001",
     "args": {
-      "cmd": "npx vue-tsc --project /Users/alisersaripov/Desktop/SDMFUI-uust-demo/frontend-widgets/footer-mf/node_modules/.federation/tsconfig.287da30b0f8e696fd683c0faff670e0d.json"
+      "cmd": "npx vue-tsc --project /Users/alisersaripov/Desktop/SDMFUI-uust-demo/frontend-widgets/footer-mf/node_modules/.federation/tsconfig.0e88e57c6bfd818136b3346240f198d9.json"
     },
-    "timestamp": 1791037577109
+    "timestamp": 1791063038936
   }
 }
