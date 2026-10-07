@@ -1,0 +1,1 @@
+CREATE DATABASE items_list_service_db;

@@ -5,7 +5,8 @@ import { toast } from "vue3-toastify";
 
 export interface Page {
   id: number;
-  name: string;
+  title: string;
+  value: string;
 }
 
 export type CreatePage = Omit<Page, "id">;

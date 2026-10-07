@@ -1,4 +1,4 @@
-module github.com/alisherasd/layout-service
+module layout-service
 
 go 1.26.0
 

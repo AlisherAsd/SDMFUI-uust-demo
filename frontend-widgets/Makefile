@@ -1,5 +1,10 @@
-services-start:
-	@for dir in */; do \
-		(cd "$$dir" && npm run dev) & \
-	done; \
-	wait
+build: 
+	docker-compose build 
+
+start: build
+	docker-compose up
+
+stop:
+	docker-compose down
+
+restart: stop start

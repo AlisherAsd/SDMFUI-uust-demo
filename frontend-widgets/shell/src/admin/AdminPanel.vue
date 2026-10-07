@@ -39,7 +39,7 @@ const handleCreateWidget = async () => {
 }
 
 const handleCreatePage = async () => {
-  if (!page.value.name) return
+  if (!page.value.title || !page.value.value) return
   await createPage(page.value as Page)
 }
 
@@ -89,13 +89,13 @@ watch(selectedPageName, async (val: string) => {
         <h3>Посмотреть виджеты на странице</h3>
         <b>Выберите страницу</b>
         <select v-model="selectedPageName">
-          <option v-for="p in pages" :value="p.name" :key="p.id">{{ p.name }}</option>
+          <option v-for="p in pages" :value="p.value" :key="p.id">{{ p.title }}</option>
         </select>
         <div v-if="pageWidgets.length">
           <div v-for="w in pageWidgets" :key="w.entryUrl">
             {{ JSON.stringify(w, null, 2) }}
             <button :class="s.clear"
-              @click="() => handleDeleteWidgetFromPage(w.id, pages.find(p => p.name === selectedPageName)?.id)">
+              @click="() => handleDeleteWidgetFromPage(w.id, pages.find(p => p.value === selectedPageName)?.id)">
               Удалить</button>
           </div>
         </div>
@@ -121,7 +121,8 @@ watch(selectedPageName, async (val: string) => {
         <h3>Создать страницу</h3>
         <div :class="s.form">
           <b>Название</b>
-          <input placeholder="Введите название страницы" v-model="page.name" />
+          <input placeholder="Введите название страницы" v-model="page.title" />
+          <input placeholder="Введите url страницы" v-model="page.value" />
         </div>
         <button :class="s.save" @click="handleCreatePage">Создать</button>
       </div>
@@ -130,7 +131,7 @@ watch(selectedPageName, async (val: string) => {
         <div :class="s.form">
           <b>Страница на которую надо добавить виджет</b>
           <select v-model="widgetPage.pageId">
-            <option v-for="page in pages" :value="page.id">{{ page.name }}</option>
+            <option v-for="page in pages" :value="page.id">{{ page.title }}</option>
           </select>
           <b>Виджет который надо добавить</b>
           <select v-model="widgetPage.widgetId">

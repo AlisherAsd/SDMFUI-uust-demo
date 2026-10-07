@@ -1,5 +1,5 @@
-INSERT INTO pages (name) VALUES 
-    ('home')
+INSERT INTO pages (title, value) VALUES 
+    ('Главная', 'home')
 ;
 
 INSERT INTO widgets (mf_name, component_name, entry_url) VALUES

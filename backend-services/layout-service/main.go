@@ -15,21 +15,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type Config struct {
-	DatabaseURL string
-}
-
-func Load() *Config {
-	dsn := fmt.Sprintf(
-		"postgres://%s:%s@localhost:%s/%s?sslmode=disable",
-		os.Getenv("POSTGRES_USER"),
-		os.Getenv("POSTGRES_PASSWORD"),
-		os.Getenv("POSTGRES_PORT"),
-		os.Getenv("POSTGRES_DB"),
-	)
-	return &Config{DatabaseURL: dsn}
-}
-
 type Widget struct {
 	MfName        string `json:"mfName"`
 	ComponentName string `json:"componentName"`
@@ -44,11 +29,13 @@ type LayoutWidget struct {
 
 type Page struct {
 	Id   int    `json:"id"`
-	Name string `json:"name"`
+	Title string `json:"title"`
+	Value string `json:"value"`
 }
 
 type CreatePage struct {
-	Name string `json:"name"`
+	Title string `json:"title"`
+	Value string `json:"value"`
 }
 
 type WidgetPage struct {
@@ -107,7 +94,6 @@ func createWidget(p *pgxpool.Pool) gin.HandlerFunc {
 		c.JSON(http.StatusCreated, gin.H{
 			"success": true,
 		})
-		return
 	}
 }
 
@@ -147,8 +133,8 @@ func createPage(p *pgxpool.Pool) gin.HandlerFunc {
 		}
 		_, err := p.Exec(
 			c.Request.Context(),
-			"INSERT INTO pages (name) VALUES ($1)",
-			page.Name,
+			"INSERT INTO pages (title, value) VALUES ($1, $2)",
+			page.Title, page.Value,
 		)
 
 		if err != nil {
@@ -161,7 +147,6 @@ func createPage(p *pgxpool.Pool) gin.HandlerFunc {
 		c.JSON(http.StatusCreated, gin.H{
 			"success": true,
 		})
-		return
 	}
 }
 
@@ -169,7 +154,7 @@ func getLayout(p *pgxpool.Pool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		rows, err := p.Query(
 			c.Request.Context(),
-			"SELECT w.id, pw.level, w.mf_name, w.component_name, w.entry_url FROM widgets w JOIN pages_widgets pw ON pw.widget_id = w.id JOIN pages p ON pw.page_id = p.id WHERE p.name = $1 ORDER BY pw.level ASC",
+			"SELECT w.id, pw.level, w.mf_name, w.component_name, w.entry_url FROM widgets w JOIN pages_widgets pw ON pw.widget_id = w.id JOIN pages p ON pw.page_id = p.id WHERE p.value = $1 ORDER BY pw.level ASC",
 			c.Param("pageName"),
 		)
 
@@ -204,7 +189,7 @@ func addWidgetOnPage(p *pgxpool.Pool) gin.HandlerFunc {
 			return
 		}
 
-		log.Printf("INSERT pages_widgets: pageId=%d widgetId=%d level=%d",
+		log.Printf("INSERT pages_widgets: pageId=%d widgetId=%d level=%f",
 			wp.PageId, wp.WidgetId, wp.Level)
 		_, err := p.Exec(
 			c.Request.Context(),
@@ -222,7 +207,6 @@ func addWidgetOnPage(p *pgxpool.Pool) gin.HandlerFunc {
 		c.JSON(http.StatusCreated, gin.H{
 			"success": true,
 		})
-		return
 	}
 }
 
@@ -245,8 +229,23 @@ func deleteWidgetFromPage(p *pgxpool.Pool) gin.HandlerFunc {
 		c.JSON(http.StatusCreated, gin.H{
 			"success": true,
 		})
-		return
 	}
+}
+
+
+type Config struct {
+	DatabaseURL string
+}
+
+func Load() *Config {
+	dsn := fmt.Sprintf(
+		"postgres://%s:%s@%s:5432/%s?sslmode=disable",
+		os.Getenv("POSTGRES_USER"),
+		os.Getenv("POSTGRES_PASSWORD"),
+		os.Getenv("POSTGRES_SERVICE_NAME"),
+		os.Getenv("POSTGRES_DB"),
+	)
+	return &Config{DatabaseURL: dsn}
 }
 
 
@@ -263,7 +262,7 @@ func main() {
 		MaxAge:           12 * time.Hour,
 	}))
 
-	cfg := Load()
+		cfg := Load()
 	pool, err := pgxpool.New(context.Background(), cfg.DatabaseURL)
 
 	if err != nil {

@@ -11,29 +11,16 @@ interface Context {
 }
 
 
-const props = defineProps<{
-    context?: Context
-}>()
-
 interface ItemsLink {
+    id: number
     title: string
     value: string
 }
 
-const pages = ref<ItemsLink[]>([
-    {
-        title: 'Главная',
-        value: 'home'
-    },
-    {
-        title: 'Пользователи',
-        value: '/users'
-    },
-    {
-        title: 'О нас',
-        value: '/about'
-    },
-])
+const props = defineProps<{
+    context?: Context
+    links?: ItemsLink[]
+}>()
 </script>
 
 <template>
@@ -44,8 +31,8 @@ const pages = ref<ItemsLink[]>([
             </a>
         </div>
         <div>
-            <ul>
-                <li v-for="l in pages">
+            <ul v-if="links?.length">
+                <li v-for="l in links" :key="l.id">
                     <a :href="l.value">{{ l.title }}</a>
                 </li>
                 <li v-if="context?.user?.isAuthorization" :class="s.profile">

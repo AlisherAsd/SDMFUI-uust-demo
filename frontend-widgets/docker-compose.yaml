@@ -1,0 +1,35 @@
+services:
+  shell-mf:
+    build:
+      context: ./shell
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+
+  header-mf:
+    build:
+      context: ./header-mf
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+
+  footer-mf:
+    build:
+      context: ./footer-mf
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"
+
+  items-list-mf:
+    build:
+      context: ./items-list-mf
+      dockerfile: Dockerfile
+    ports:
+      - "5003:5003"
+
+  advertising-widget-mf:
+    build:
+      context: ./advertising-widget-mf
+      dockerfile: Dockerfile
+    ports:
+      - "5005:5005"
